@@ -34,6 +34,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'users.apps.UsersConfig',
+    'payments.apps.PaymentsConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -132,3 +133,8 @@ LOGIN_URL = 'login'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+PAYTM_MERCHANT_ID = 'fDTtCa60406068762450' 
+PAYTM_SECRET_KEY = 'ItoOpFPmZfR70XX4'
+PAYTM_WEBSITE = 'WEBSTAGING'
+PAYTM_CHANNEL_ID = 'WEB'
+PAYTM_INDUSTRY_TYPE_ID = 'Retail'

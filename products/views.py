@@ -40,8 +40,11 @@ def add_cart (request, pk):
         cart.save()
     else:
         ThingInCart = cart.items.get(product = thing)
-        ThingInCart.quantity = quantity=request.POST.get('quantity')
+        cart.amount = cart.amount - (int(ThingInCart.quantity)) * (thing.price)
+        ThingInCart.quantity=request.POST.get('quantity')
+        cart.amount = cart.amount + (int(ThingInCart.quantity)) * (thing.price)
         ThingInCart.save()
+        cart.save()
     messages.success(request, f'{thing.title} added to cart!')
 
     return redirect ('product-home')
@@ -88,13 +91,3 @@ class OrderListView (ListView):
         qset = Order.objects.filter(user = usr, placed = True).order_by('-order_time')
 
         return qset
-
-def PlaceOrder (request):
-    cart = Order.objects.filter(user = request.user).get(placed = "False")
-    cart.placed = "True"
-    cart.order_time = datetime.now()
-    cart.save()
-    NewCart = Order.objects.create(user = request.user)
-    NewCart.save()
-    messages.success(request, f'Order Confirmed')
-    return redirect('product-home')
